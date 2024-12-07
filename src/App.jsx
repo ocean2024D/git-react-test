@@ -41,6 +41,7 @@ function App() {
     updateTodo(todoId, { todo: editTodo });
   };
 
+
   //DELETE
   const deleteTodo = async (todoId) => {
     const deletedResponse = await axios.delete(`${Base_Url}/todos/${todoId}`);
@@ -51,61 +52,71 @@ function App() {
     getTodos();
   }, []);
 
-  return (
-    <>
-      <h1>TODO LIST</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Add new todo"
-          value={newTodo.todo}
-          onChange={(e) => setNewTodo({ ...newTodo, todo: e.target.value })}
-        />
-        <button onClick={handleAddTodo}>Add</button>
-      </div>
 
-     <ul>
-  {todos.map((todo) => (
-    <li key={todo.id}>
-      {editId === todo.id ? (
-        <>
-          <input
-            type="text"
-            value={editTodo}
-            onChange={(e) => setEditTodo(e.target.value)}
-          />
-          <button onClick={() => handleSave(todo.id)}>Save</button>
-        </>
-      ) : (
-        <>
-          <input
-            type="text"
-            value={todo.todo}
-            disabled
-          />
-          <button
-            onClick={() => {
-              setEditId(todo.id);
-              setEditTodo(todo.todo);
-            }}
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => {
-              deleteTodo(todo.id);
-            }}
-          >
-            Delete
-          </button>
-        </>
-      )}
-    </li>
-  ))}
-</ul>
+      return (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+          <div className="text-center font-custom">
+            <h1 className=" font-custom text-4xl text-red-950">TODO LIST</h1>
+         
+            <div>
+              <input
+                className=" font-custom inputDesign rounded-xl border-slate-800 w-80 h-12 border-4"
+                type="text"
+                placeholder="Add new todo"
+                value={newTodo.todo}
+                onChange={(e) => setNewTodo({ ...newTodo, todo: e.target.value })}
+              />
+              <button
+                className="button border-4 w-36 h-12 m-4 border-blue-950 rounded-xl bg-cyan-600 text-2xl"
+                onClick={handleAddTodo}
+              >
+                Add
+              </button>
+            </div>
+    
+            <ul>
+              {todos.map((todo) => (
+                <li
+                className="list text-blue-950 border-4 "
+                
+                key={todo.id}>
+                  {editId === todo.id ? (
+                    <>
+                      <input
+                       className="inputDesign border-slate-800 w-80 h-12 border-4"
 
-    </>
-  );
-}
-
-export default App;
+                        type="text"
+                        value={editTodo}
+                        onChange={(e) => setEditTodo(e.target.value)}
+                      />
+                      <button
+                      className="save  bg-green-400 text-white m-2 border-4 w-32 border-blue-950 "
+                       onClick={() => handleSave(todo.id)}>Save</button>
+                    </>
+                  ) : (
+                    <>
+                      <input type="text" value={todo.todo} disabled />
+                      <button
+                       className="edit bg-gray-600 text-white m-2 border-4 w-32 border-blue-950"
+                        onClick={() => {
+                          setEditId(todo.id);
+                          setEditTodo(todo.todo);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                      className="delete bg-red-600 text-white m-2 border-4 w-32 border-blue-950"
+                       onClick={() => deleteTodo(todo.id)}>Delete</button>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+    
+    export default App;
+    
